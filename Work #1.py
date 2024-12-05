@@ -3,7 +3,7 @@ import time
 # Це щоб очищати термінал
 import os
 
-os.system('cls')
+os.system('clear')
 
 # Перше та друге завдання
 print("-----Перше завдання у поєднанні з другим-----")
@@ -22,7 +22,7 @@ for i in Fruits:
         num += 1
 print(f"В списку {num} {f}")
 time.sleep(1)
-os.system('cls')
+os.system('clear')
 
 
 # третє завдання
@@ -52,7 +52,7 @@ Cars = tuple(Cars)
 for i in Cars:
         print(i, "\t")
 time.sleep(3)
-os.system('cls')
+os.system('clear')
 
 # Чeтверте завдання
 print("------------Четверте завдання--------------")
