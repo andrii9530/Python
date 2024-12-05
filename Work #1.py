@@ -50,7 +50,7 @@ for i in Cars:
 Cars = tuple(Cars)
 
 for i in Cars:
-        print(i, "\t")
+        print(i)
 time.sleep(3)
 os.system('clear')
 
