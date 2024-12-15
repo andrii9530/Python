@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 # Це щоб очищати термінал
 import os
 # Це щоб було краще)
@@ -34,14 +34,35 @@ class ForeignPassport(Passport):
     def date(self):
         print(f"Прізвище {self.surname}\nІм\'я {self.name}\nПо батькові {self.parents}\nКраїна {self.country}\nДата народженя {self.dateOfBirth}\nДійсний до {self.validUntil}")
 
+    def addVisa(self,newVisa):
+        self.visa.append(newVisa)
+        print(f"Віза {newVisa} Успішно додана")
+
+    def removeVisa(self,nameVisa):
+        if nameVisa in self.visa:
+            self.visa.remove(nameVisa)
+            print(f"Віза {nameVisa} Успішно Видаленна")
+        else:
+            print("Такої візи немає")
 
 
 
-user1 = ForeignPassport(["wconw","injckj "],"8795203039","Майструк","Андрій","Володимирович","Україна","13.11.2005","04.10.2034")
+user1 = ForeignPassport(["USA", "Canada"], "8795203039", "Майструк", "Андрій", "Володимирович", "Україна", "13.11.2005", "04.10.2034")
 user1.date()
 
+# Додавання нових віз
+user1.addVisa("Germany")
+user1.addVisa("France")
+
+# Видалення віз
+user1.removeVisa("USA")
+user1.removeVisa("Japan")  # Спроба видалення неіснуючої візи
+
+# Виведення всіх віз після змін
+print("Список віз:", user1.visa)
 
 
+time.sleep(3)
 os.system('cls')
 # Домашнє завдання з конвертацією температури
 class TemperatureConverter:
@@ -84,3 +105,4 @@ while num != 0:
         print("Вихід успішний")
         time.sleep(1)
         os.system('cls')
+        
