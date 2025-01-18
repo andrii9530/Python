@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список фільмів</title>
 </head>
 <body>
-    <h1>Список фільмів</h1>
+    {% load static %}
+
+
+    {% block content %}
     <ul>
         {% for film in films %}
             <li>
-                <strong>{{ film.title }}</strong> - {{ film.genre }} ({{ film.release_date }})
+                <a href="{% url 'film_detail' film.id %}">{{ film.title }}</a>
             </li>
         {% endfor %}
     </ul>
+    {% endblock %}
+
+
 </body>
 </html>
