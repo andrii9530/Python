@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ film.title }}</title>
+</head>
+<body>
+
+    {% block title %}{% endblock %}
+
+    {% block content %}
+    <h2>{{ film.title }}</h2>
+    <img src="{{ бобер }}" alt="{{ film.title }}">
+    <p><strong>Рік випуску:</strong> {{ film.release_year }}</p>
+    <p><strong>Опис:</strong> {{ film.description }}</p>
+    <p><strong>Рейтинг:</strong> {{ film.rating }}</p>
+    <p><strong>Жанри:</strong>
+        {% for genre in film.genres.all %}
+            {{ genre.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    {% if user.is_authenticated %}
+    <a href="#">Забронювати</a>
+    {% else %}
+        <a href="{% url 'login' %}">Увійдіть, щоб забронювати</a>
+    {% endif %}
+    {% endblock %}
+
+</body>
+</html>
