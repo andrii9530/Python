@@ -4,12 +4,9 @@
     <title>{{ film.title }}</title>
 </head>
 <body>
-
-    {% block title %}{% endblock %}
-
     {% block content %}
     <h2>{{ film.title }}</h2>
-    <img src="{{ бобер }}" alt="{{ film.title }}">
+    <img src="{{ film.image_url }}" alt="{{ film.title }}" style="width:300px; height:auto;">
     <p><strong>Рік випуску:</strong> {{ film.release_year }}</p>
     <p><strong>Опис:</strong> {{ film.description }}</p>
     <p><strong>Рейтинг:</strong> {{ film.rating }}</p>
@@ -18,12 +15,27 @@
             {{ genre.name }}{% if not forloop.last %}, {% endif %}
         {% endfor %}
     </p>
+
+    {% if film.trailer_url %}
+    <h3>Трейлер:</h3>
+    <iframe width="560" height="315" 
+            src="{{ film.trailer_url }}" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+    </iframe>
+    {% else %}
+    <p><em>Трейлер недоступний</em></p>
+    {% endif %}
+
     {% if user.is_authenticated %}
-    <a href="#">Забронювати</a>
+        <a href="#">Забронювати</a>
     {% else %}
         <a href="{% url 'login' %}">Увійдіть, щоб забронювати</a>
     {% endif %}
     {% endblock %}
-
 </body>
 </html>
+
