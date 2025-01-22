@@ -12,7 +12,8 @@ class Film(models.Model):
     description = models.TextField()
     release_year = models.PositiveIntegerField()
     rating = models.DecimalField(max_digits=3, decimal_places=1)
-    image = models.ImageField(upload_to='film/', null=True, blank=True)
+    image_url = models.URLField(max_length=500, null=True, blank=True)
+    trailer_url = models.URLField(null=True, blank=True)
     genres = models.ManyToManyField(Genre, related_name='films')
 
     def __str__(self):
