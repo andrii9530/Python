@@ -2,21 +2,91 @@
 <html>
 <head>
     <title>Список фільмів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .film-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .film-card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 300px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .film-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .film-card p {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .search-filter input, .search-filter select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-filter button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-filter button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    {% load static %}
-
-
     {% block content %}
-    <ul>
+    <div class="search-filter">
+        <form method="get">
+            <select name="genre">
+                <option value="">Усі жанри</option>
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}" {% if request.GET.genre == genre.id|stringformat:"s" %}selected{% endif %}>
+                        {{ genre.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Пошук</button>
+        </form>
+        
+    </div>
+    <div class="film-grid">
         {% for film in films %}
-            <li>
-                <a href="{% url 'film_detail' film.id %}">{{ film.title }}</a>
-            </li>
+            <div class="film-card">
+                <a href="{% url 'film_detail' film.id %}">
+                    <img src="{{ film.image.url }}" alt="{{ film.title }}">
+                    <p>{{ film.title }}</p>
+                </a>
+            </div>
+        {% empty %}
+            <p>Фільми не знайдено.</p>
         {% endfor %}
-    </ul>
+    </div>
     {% endblock %}
-
-
 </body>
 </html>
