@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Адмінка: Фільми</title>
+</head>
+<body>
+    <h1>Список фільмів</h1>
+
+    <!-- Кнопка для додавання нового фільму -->
+    <a href="{% url 'add_film' %}" style="background-color: green; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">Додати новий фільм</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Опис</th>
+                <th>Жанри</th>
+                <th>Рік</th>
+                <th>Рейтинг</th>
+                <th>Зображення</th>
+                <th>Трейлер</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for film in films %}
+            <tr>
+                <td>{{ film.title }}</td>
+                <td>{{ film.description }}</td>
+                <td>
+                    {% for genre in film.genres.all %}
+                        {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ film.release_year }}</td>
+                <td>{{ film.rating }}</td>
+                <td>
+                    {% if film.image_url %}
+                        <img src="{{ film.image_url }}" alt="Зображення {{ film.title }}" width="100">
+                    {% else %}
+                        Немає зображення
+                    {% endif %}
+                </td>
+                <td>
+                    {% if film.trailer_url %}
+                        <a href="{{ film.trailer_url }}" target="_blank">Переглянути трейлер</a>
+                    {% else %}
+                        Немає трейлера
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'edit_film' film.id %}" style="margin-right: 10px; color: blue;">Редагувати</a>
+                    <form action="{% url 'delete_film' film.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="color: red;">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if film %}Редагувати фільм{% else %}Додати фільм{% endif %}</title>
+</head>
+<body>
+    <h1>{% if film %}Редагувати фільм: {{ film.title }}{% else %}Додати новий фільм{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if film %}Зберегти{% else %}Додати{% endif %}</button>
+    </form>
+    <a href="{% url 'admin_dashboard' %}">Назад</a>
+</body>
+</html>

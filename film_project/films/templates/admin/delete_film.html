@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Видалити {{ film.title }}</title>
+</head>
+<body>
+    <h1>Ви впевнені, що хочете видалити "{{ film.title }}"?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Так</button>
+        <a href="{% url 'admin_dashboard' %}">Ні</a>
+    </form>
+</body>
+</html>
+
